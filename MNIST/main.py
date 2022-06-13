@@ -2,7 +2,7 @@ import tensorflow as tf
 from tensorflow import keras
 
 # Network and training parameters
-EPOCHS = 200  # defines how long the training should last
+EPOCHS = 20  # defines how long the training should last
 BATCH_SIZE = 128  # is the numer of samples which are fed in to the network at a time
 VERBOSE = 1
 NB_CLASSES = 10  # number of outputs == number of digits
@@ -47,7 +47,7 @@ model.add(keras.layers.Dense(NB_CLASSES, name="dense_layer_3", activation='softm
 model.summary()
 
 # Compiling the model
-model.compile(optimizer="SGD", loss="categorical_crossentropy", metrics=["accuracy"])
+model.compile(optimizer="Adam", loss="categorical_crossentropy", metrics=["accuracy"])
 
 # Training the model
 model.fit(X_train, Y_train, batch_size=BATCH_SIZE, epochs=EPOCHS, verbose=VERBOSE, validation_split=VALIDATION_SPLIT)
