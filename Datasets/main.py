@@ -1,16 +1,35 @@
-# This is a sample Python script.
+import tensorflow as tf
+import numpy as np
+import tensorflow_datasets as tfds
 
-# Press Umschalt+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# See all registered datasets
+builders = tfds.list_builders()
+print(builders)
 
+# Load a given dataset by name, along with the DatasetInfo metadata
+data, info = tfds.load("mnist", with_info=True)
+train_data, test_data = data["train"], data["test"]
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Strg+F8 to toggle the breakpoint.
+print(info)
 
+# Creating datasets from numpy array
+num_items = 100
+num_list = np.arange(num_items)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+# creating the dataset from numpy array
+num_list = tf.data.Dataset.from_tensor_slices(num_list)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# Creation
+# 1. via from_tensor_slices() => accepts individual NumPy (or tensors) and batches
+# 2. via from_tensors() => save as 1. but does not support batches
+# 3. via from_generator() => takes input from a generator frnction
+
+# Transformation:
+# 1. via batch() => sequentially divides the dataset by the specified size
+# 2. via repeat() => duplicated the data
+# 3. via shuffle() => randomly shuffles the data
+# 4. via map() => applies a function to the data
+# 5. filter() => applies a filter function to the data
+
+# Iterators:
+# via next_batch = iterator.get_next()
